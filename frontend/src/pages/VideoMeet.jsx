@@ -15,8 +15,9 @@ import CallEndIcon from "@mui/icons-material/CallEnd";
 import { redirect } from "react-router-dom";
 import Badge from "@mui/material/Badge";
 import { useNavigate } from "react-router-dom";
+import server from "../environment";
 
-const server_url = "http://localhost:8080";
+const server_url = server;
 
 const connections = {};
 const peerConfigConnections = {
