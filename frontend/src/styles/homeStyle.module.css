@@ -1,0 +1,70 @@
+.homeMainContainer {
+  height: 100vh;
+  width: 100vw;
+  background: url("/public/HomeBg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+.navLinks {
+  display: flex;
+  align-items: center;
+  margin-right: 2rem;
+}
+
+.navLinks p {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+.meetContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem;
+  align-items: center;
+}
+.leftPanel {
+  margin-right: 2rem;
+}
+.leftPanel h2 {
+  color: #1b4332;
+  font-size: 2rem;
+}
+.leftPanel p {
+  color: #3a5a40;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+ul {
+  list-style-type: none;
+  margin-top: 4rem;
+}
+li {
+  color: #3a5a40;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+}
+li p {
+  margin: 0 0 0 2rem;
+  font-size: 1.2rem;
+}
+.meetingtext {
+  display: flex;
+  gap: 10px;
+}
+
+.rightPanel Button {
+  height: 3.2rem;
+}
+/* .rightPanel {
+} */
+.rightPanel p {
+  color: #3a5a40;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
