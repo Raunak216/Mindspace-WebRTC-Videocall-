@@ -13,7 +13,7 @@ app.set("port", process.env.PORT || 8080);
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://mindspace-webrtc-videocall-static.onrender.com",
+  "https://mindspace-web-rtc-videocall.vercel.app",
 ];
 
 app.use(
