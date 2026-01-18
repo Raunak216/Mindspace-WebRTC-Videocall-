@@ -29,13 +29,13 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 export default function Authentication() {
-  const [username, setUsername] = React.useState();
-  const [password, setPassword] = React.useState();
-  const [name, setName] = React.useState();
-  const [error, setError] = React.useState();
-  const [message, setMessage] = React.useState();
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [error, setError] = React.useState("");
+  const [message, setMessage] = React.useState("");
   const [formState, setFormState] = React.useState(0);
-  const [open, setOpen] = React.useState();
+  const [open, setOpen] = React.useState(false);
 
   const { handleRegister, handleLogin } = React.useContext(AuthContext);
   const handelAuth = async (e) => {
@@ -140,7 +140,25 @@ export default function Authentication() {
           ) : (
             <></>
           )}
-
+          {formState === 0 && (
+            <Box
+              sx={{
+                textAlign: "center",
+              }}
+            >
+              <Button
+                size="small"
+                variant="contained"
+                color="warning"
+                onClick={() => {
+                  setUsername("demoUser");
+                  setPassword("demouser21604");
+                }}
+              >
+                Use demo credentials
+              </Button>
+            </Box>
+          )}
           <FormControl>
             <FormLabel htmlFor="username">Username</FormLabel>
             <TextField
@@ -154,6 +172,7 @@ export default function Authentication() {
               autoFocus
               required
               fullWidth
+              value={username}
               variant="outlined"
               onChange={(e) => {
                 setUsername(e.target.value);
@@ -175,20 +194,15 @@ export default function Authentication() {
               autoFocus
               required
               fullWidth
+              value={password}
               variant="outlined"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              // color={passwordError ? "error" : "primary"}
             />
           </FormControl>
 
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            // onClick={validateInputs}
-          >
+          <Button type="submit" fullWidth variant="contained">
             {formState === 0 ? "Sign in" : "Sign up"}
           </Button>
         </Box>
