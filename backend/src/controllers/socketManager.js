@@ -25,7 +25,7 @@ export const connectToSocket = (server) => {
         io.to(connections[path][a]).emit(
           "user-joined",
           socket.id,
-          connections[path]
+          connections[path],
         ); //a=index of user in room
       }
     });
@@ -80,7 +80,7 @@ export const connectToSocket = (server) => {
       });
 
       connections[foundRoom] = connections[foundRoom].filter(
-        (id) => id !== socket.id
+        (id) => id !== socket.id,
       );
 
       if (connections[foundRoom].length === 0) {

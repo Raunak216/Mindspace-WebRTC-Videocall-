@@ -1,70 +1,107 @@
 .homeMainContainer {
   height: 100vh;
   width: 100vw;
-  background: url("/public/HomeBg.png");
+  background-image: url("/public/bgHero.png");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
 }
+
 .navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
 }
+
+.logo h2 {
+  color: orange;
+  font-size: 1.8rem;
+  margin: 0;
+}
+
 .navLinks {
   display: flex;
   align-items: center;
-  margin-right: 2rem;
+  gap: 1.5rem;
 }
 
-.navLinks p {
-  font-size: 1.3rem;
+.iconBtn p {
+  font-size: 1rem !important;
   font-weight: 600;
-  margin-left: 1rem;
+  margin-right: 0.5rem;
+  color: #e6dbdb;
 }
+
+.logoutBtn {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  background-color: #d32f2f !important;
+  border-radius: 10px !important;
+}
+
 .meetContainer {
-  display: flex;
-  justify-content: space-between;
-  margin: 2rem;
-  align-items: center;
+  background-color: rgba(253, 248, 248, 0.4);
+  margin: auto;
+  padding: 3rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
 }
-.leftPanel {
-  margin-right: 2rem;
-}
-.leftPanel h2 {
+
+.homeHeading h2 {
   color: #1b4332;
   font-size: 2rem;
-}
-.leftPanel p {
-  color: #3a5a40;
-  font-weight: 500;
-  font-size: 1.3rem;
-}
-ul {
-  list-style-type: none;
-  margin-top: 4rem;
-}
-li {
-  color: #3a5a40;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-}
-li p {
-  margin: 0 0 0 2rem;
-  font-size: 1.2rem;
-}
-.meetingtext {
-  display: flex;
-  gap: 10px;
+  margin-bottom: 0.5rem;
 }
 
-.rightPanel Button {
-  height: 3.2rem;
+.homeHeading p {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
 }
-/* .rightPanel {
-} */
-.rightPanel p {
-  color: #3a5a40;
+
+/* Input Area */
+.actionSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  color: #333;
   font-weight: 500;
-  font-size: 1.3rem;
+  margin: 0;
+}
+
+.inputGroup {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.joinBtn {
+  background-color: orange !important;
+  height: 40px;
+}
+
+.helperText {
+  font-size: 0.95rem;
+  color: #ffffff;
+  margin-top: 0.5rem;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 1rem;
+  }
+  .meetContainer {
+    padding: 2rem 1.5rem;
+  }
 }

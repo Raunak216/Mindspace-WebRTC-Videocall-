@@ -66,13 +66,13 @@ export default function Authentication() {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        backgroundImage: 'url("/HomeBg.png")',
+        backgroundImage: 'url("/bgHero.png")',
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
     >
-      <Card variant="outlined" sx={{ background: "rgba(220, 251, 230, 1)" }}>
+      <Card variant="outlined" sx={{ background: "rgba(220, 251, 230, .4)" }}>
         <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
         <Typography
           component="h1"
