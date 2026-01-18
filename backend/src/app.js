@@ -14,10 +14,24 @@ app.set("port", process.env.PORT || 8080);
 const allowedOrigins = [
   "http://localhost:3000",
   "https://mindspace-webrtc-videocall-static.onrender.com",
-  "https://mindspace-webrtc-videocall-3.onrender.com",
 ];
 
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("CORS not allowed"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
 
 app.use(express.json({ limit: "40kb" }));
 app.use(express.urlencoded({ limit: "40kb", extended: true }));
