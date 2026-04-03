@@ -1,183 +1,409 @@
+.usernameWindowOuter {
+  height: 100vh;
+  width: 100vw;
+  background: #0a0a14;
+  display: flex;
+  flex-direction: column;
+  font-family: "DM Sans", sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.usernameWindowOuter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 50% at 50% 30%,
+    rgba(249, 115, 22, 0.08) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.lobbyNav {
+  font-family: "Sora", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  padding: 1.4rem 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(12px);
+  position: relative;
+  z-index: 10;
+}
+
+.logoAccent {
+  color: #f97316;
+}
+
+.usernameWindowInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  flex: 1;
+  padding: 2rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.enterUsername {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 340px;
+  width: 100%;
+}
+
+.lobbyTitle {
+  font-family: "Sora", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin: 0;
+}
+
+.lobbySubtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.lobbyInput {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.8rem 1.1rem;
+  color: #f0f0f8;
+  font-size: 0.95rem;
+  font-family: "DM Sans", sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.lobbyInput::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.lobbyInput:focus {
+  border-color: rgba(249, 115, 22, 0.5);
+}
+
+.lobbyBtn {
+  background: #f97316;
+  border: none;
+  border-radius: 10px;
+  padding: 0.8rem 1.6rem;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+  align-self: flex-start;
+}
+
+.lobbyBtn:hover {
+  background: #ea6c0a;
+}
+
+.myVideoCheck {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  padding-left: 4rem;
+}
+
+.myVideoCheck video {
+  width: 38vw;
+  max-width: 560px;
+  border-radius: 14px;
+  background: #13131f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.myVideoCheck p {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
+}
+
+/* ── Active call screen ──────────────────────────────────── */
 .meetVideoContainer {
   height: 100vh;
   width: 100vw;
-  background-image: url("/public/bgHero.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-.meetUserVideo {
-  position: absolute;
-  bottom: 10vh;
-  height: 20vh;
-  width: auto;
-  left: 3vw;
-  border-radius: 20px;
-}
-.buttonContainer {
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
-  text-align: center;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
-}
-.buttonContainer svg {
-  font-size: 3rem;
-  padding-inline: 0.8rem;
-}
-/* 
-.conferenceContainer {
+  background: #0a0a14;
   display: flex;
-  padding: 1rem;
-  justify-content: start;
-  gap: 1rem;
-  height: 80vh;
-  width: 100vw;
+  flex-direction: column;
+  position: relative;
+  font-family: "DM Sans", sans-serif;
+  overflow: hidden;
 }
 
-.conferenceContainer video {
-  height: 35vw;
-  width: auto;
-  border-radius: 15px;
-  margin: 0.5rem;
-} */
+/* Remote video grid */
 .conferenceContainer {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  /* padding-bottom: 7.5rem;  */
-  /* max-height: calc(100vh - 7.5rem);  */
+  gap: 0.75rem;
+  padding: 1rem 1rem 6rem;
   box-sizing: border-box;
-  overflow-y: auto; /* scroll only inside the grid if needed */
-  align-items: center; /* vertically center tiles in their cells */
-  align-content: center; /* center the whole grid when there's free space */
-  grid-auto-rows: minmax(
-    0,
-    1fr
-  ); /* prevents implicit rows from forcing overflow */
+  overflow-y: auto;
+  align-items: center;
+  align-content: center;
+  flex: 1;
+  grid-auto-rows: minmax(0, 1fr);
 }
 
-/* replace your existing .conferenceContainer video rules with this */
+.videoTile {
+  border-radius: 14px;
+  overflow: hidden;
+  background: #13131f;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
 .conferenceContainer video {
   width: 100%;
-  height: auto; /* keep natural height, don't force 100% */
-  max-height: calc(
-    100vh - 11rem
-  ); /* prevent single tile from exceeding viewport */
-  aspect-ratio: 16/9; /* keep consistent ratio */
+  height: auto;
+  max-height: calc(100vh - 11rem);
+  aspect-ratio: 16/9;
   object-fit: cover;
-  border-radius: 12px;
-  background: black;
+  display: block;
+  background: #13131f;
 }
 
 .conferenceContainer > div:only-child > video {
   object-fit: contain;
   width: auto;
-  height: 100vh;
+  height: calc(100vh - 6rem);
   justify-self: center;
   align-self: center;
-  margin-top: 1rem;
-  margin-left: 15vw;
 }
 
-.chatRoom {
+/* Local video pip */
+.meetUserVideo {
   position: absolute;
-  background: rgba(239, 236, 236, 0.7);
-  right: 0;
-  height: 93vh;
-  width: 25vw;
-  border-radius: 8px;
-  color: #1b4332;
-  overflow-y: hidden;
+  bottom: 5.5rem;
+  left: 1.2rem;
+  height: 18vh;
+  width: auto;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  z-index: 20;
+  background: #13131f;
 }
-.chatContainer {
-  padding-inline: 0.5rem;
-}
-.chatContainer h1 {
-  text-align: center;
-}
-.chatContainer h1 {
-  font-weight: 500;
-  margin-top: 0.2rem;
-}
-.chatMessages {
-  overflow-y: hidden;
-}
-.sendMessage {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  height: 10vh;
-  width: 25vw;
+
+/* ── Control bar ─────────────────────────────────────────── */
+.buttonContainer {
   position: absolute;
   bottom: 0;
-}
-.chatText {
-  width: 18vw;
-}
-.message {
-  background-color: aliceblue;
-  border-radius: 10px;
-  margin: 0 0 10px 7px;
-  padding: 5px 5px 5px 10px;
-}
-.sender {
-  margin: 0;
-  padding: 0;
-  font-weight: 300;
-}
-.messageSent {
-  margin: 0;
-  padding: 0;
-  font-weight: 600;
-}
-.usernameWindowOuter {
-  height: 100vh;
-  width: 100vw;
-  background: url("/public/HomeBg.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-.usernameWindowOuter h2 {
-  color: orange;
-  margin-top: 0;
-  padding: 1.6rem;
-  font-size: 1.7rem;
-  font-weight: 700;
-  overflow: hidden;
-}
-.usernameWindowInner {
+  width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-evenly;
+  gap: 0.75rem;
+  padding: 0.9rem 1rem;
+  background: rgba(10, 10, 20, 0.85);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 30;
 }
 
-.myVideoCheck {
-  padding-left: 4rem;
-  height: 70vh;
-  border-left: solid #1b4332 3px;
+.ctrlBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+  flex-shrink: 0;
 }
-.myVideoCheck p {
-  font-size: 0.8rem;
-  color: #1b4332;
+
+.ctrlBtn svg {
+  font-size: 1.3rem;
+}
+
+.ctrlBtn:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
+
+.ctrlBtnOff {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: #f87171;
+}
+
+.ctrlBtnOff:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+.ctrlBtnActive {
+  background: rgba(249, 115, 22, 0.2);
+  border-color: rgba(249, 115, 22, 0.4);
+  color: #f97316;
+}
+
+.ctrlBtnEnd {
+  background: #ef4444;
+  border-color: #ef4444;
+  color: #fff;
+  width: 52px;
+  height: 52px;
+}
+
+.ctrlBtnEnd:hover {
+  background: #dc2626;
+  border-color: #dc2626;
+}
+
+/* ── Chat panel ──────────────────────────────────────────── */
+.chatRoom {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 70px; /* clears the control bar so input is never hidden under it */
+  width: 300px;
+  background: #16162a;
+  border-left: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+}
+
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.2rem 1rem 0;
+  overflow: hidden; /* prevents container from growing past chatRoom */
+}
+
+.chatContainer h1 {
+  font-family: "Sora", sans-serif;
+  font-size: 1rem;
   font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.8rem;
+}
+
+.chatMessages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding-bottom: 1rem;
+}
+
+.noMessages {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.25);
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.message {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 0.5rem 0.75rem;
+}
+
+.sender {
+  font-size: 0.72rem;
+  color: #f97316;
+  margin: 0 0 2px;
+  font-weight: 500;
+}
+
+.messageSent {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.8);
   margin: 0;
 }
-.myVideoCheck video {
-  height: 60vh;
-  width: 40vw;
+
+.sendMessage {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.8rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0; /* never let this get squished out of view */
 }
-.enterUsername {
-  margin: 2rem;
+
+.chatInput {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  color: #f0f0f8;
+  font-size: 0.85rem;
+  font-family: "DM Sans", sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
 }
-.enterUsername p {
-  font-size: 1.6rem;
-  color: #1b4332;
+
+.chatInput::placeholder {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+.chatInput:focus {
+  border-color: rgba(249, 115, 22, 0.4);
+}
+
+.sendBtn {
+  background: #f97316;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 0.9rem;
+  color: #fff;
+  font-size: 0.82rem;
   font-weight: 600;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
 }
-.enterUsername Button {
-  margin-left: 2rem;
-  height: 2.6rem;
+
+.sendBtn:hover {
+  background: #ea6c0a;
+}
+
+@media (max-width: 768px) {
+  .usernameWindowInner {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem;
+  }
+
+  .myVideoCheck {
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-left: 0;
+    padding-top: 1.5rem;
+  }
+
+  .myVideoCheck video {
+    width: 100%;
+  }
+
+  .chatRoom {
+    width: 100%;
+  }
+
+  .lobbyNav {
+    padding: 1rem 1.5rem;
+  }
 }

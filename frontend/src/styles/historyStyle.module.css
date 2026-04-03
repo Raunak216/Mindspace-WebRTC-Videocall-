@@ -1,22 +1,153 @@
 .historyMainContainer {
-  height: 100vh;
-  width: 100vw;
-  background-image: url("/public/bgHero.png");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  overflow-x: hidden;
+  min-height: 100vh;
+  background: #0a0a14;
+  font-family: "DM Sans", sans-serif;
+  color: #f0f0f5;
 }
 
-.historyMainContainer h2 {
-  color: orange;
-  margin: 0;
-  padding: 2rem;
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 20, 0.6);
+  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.logo {
+  font-family: "Sora", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+}
+
+.logoAccent {
+  color: #f97316;
+}
+
+.homeBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.45rem 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.85rem;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    border-color 0.2s,
+    color 0.2s;
+}
+
+.homeBtn:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.pageTitle {
+  font-family: "Sora", sans-serif;
   font-size: 1.8rem;
   font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin: 0 0 0.5rem;
 }
 
-a {
-  text-decoration: none;
+.pageSubtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0 0 2rem;
+}
+
+.meetingList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meetingCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #13131f;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  transition: border-color 0.2s;
+}
+
+.meetingCard:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.meetingCode {
+  font-family: "Sora", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.meetingDate {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+}
+
+.rejoinBtn {
+  background: rgba(249, 115, 22, 0.1);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+  border-radius: 8px;
+  padding: 0.4rem 0.9rem;
+  color: #f97316;
+  font-size: 0.82rem;
+  font-weight: 500;
+  font-family: "DM Sans", sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.rejoinBtn:hover {
+  background: rgba(249, 115, 22, 0.2);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+  font-family: "Sora", sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0 0 0.5rem;
+}
+
+.emptyState p {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin: 0;
 }

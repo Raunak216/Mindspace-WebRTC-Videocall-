@@ -1,32 +1,6 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import MuiCard from "@mui/material/Card";
-import FormLabel from "@mui/material/FormLabel";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material/styles";
 import { AuthContext } from "../context/AuthContext";
-import Snackbar from "@mui/material/Snackbar";
-
-const Card = styled(MuiCard)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignSelf: "center",
-  width: "100%",
-  padding: theme.spacing(4),
-  gap: theme.spacing(2),
-  boxShadow:
-    "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
-  [theme.breakpoints.up("sm")]: {
-    width: "450px",
-  },
-  ...theme.applyStyles("dark", {
-    boxShadow:
-      "hsla(220, 30%, 5%, 0.5) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.08) 0px 15px 35px -5px",
-  }),
-}));
+import styles from "../styles/AuthStyle.module.css";
 
 export default function Authentication() {
   const [username, setUsername] = React.useState("");
@@ -35,184 +9,153 @@ export default function Authentication() {
   const [error, setError] = React.useState("");
   const [message, setMessage] = React.useState("");
   const [formState, setFormState] = React.useState(0);
-  const [open, setOpen] = React.useState(false);
+  const [focused, setFocused] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const { handleRegister, handleLogin } = React.useContext(AuthContext);
-  const handelAuth = async (e) => {
+
+  const switchTab = (idx) => {
+    setFormState(idx);
+    setError("");
+    setMessage("");
+  };
+  const fillDemo = () => {
+    setUsername("demoUser");
+    setPassword("demouser21604");
+  };
+  const handleAuth = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
+    setMessage("");
     try {
       if (formState === 0) {
         await handleLogin(username, password);
-        setMessage("Login successful");
-      }
-      if (formState === 1) {
-        let result = await handleRegister(name, username, password);
+        setMessage("Welcome back! Taking you in…");
+      } else {
+        const result = await handleRegister(name, username, password);
         setMessage(result);
-        setTimeout(() => {
-          setFormState(0);
-        }, 1500);
+        setTimeout(() => switchTab(0), 1500);
       }
-      setError("");
-      setOpen(true);
     } catch (err) {
-      const message = err.response?.data?.message || "Something went wrong";
-      setError(message);
+      setError(
+        err.response?.data?.message ||
+          "Something went wrong. Please try again.",
+      );
+    } finally {
+      setLoading(false);
     }
   };
+  const inputClass = (field) =>
+    `${styles.input} ${focused === field ? styles.inputFocused : ""}`;
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        backgroundImage: 'url("/bgHero.png")',
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <Card variant="outlined" sx={{ background: "rgba(220, 251, 230, .4)" }}>
-        <Box sx={{ display: { xs: "flex", md: "none" } }}></Box>
-        <Typography
-          component="h1"
-          variant="h4"
-          sx={{
-            width: "100%",
-            fontSize: "clamp(2rem, 10vw, 2.15rem)",
-            textAlign: "center",
-          }}
-        >
-          {formState === 0 ? "Sign in" : "Sign up"}
-        </Typography>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            variant={formState === 0 ? "contained" : ""}
-            onClick={() => setFormState(0)}
-          >
-            Sign in
-          </Button>
-          <Button
-            variant={formState === 1 ? "contained" : ""}
-            onClick={() => setFormState(1)}
-          >
-            Sign up
-          </Button>
+    <div className={styles.pageWrapper}>
+      <div className={styles.card}>
+        <div className={styles.brand}>
+          <div className={styles.brandLogo}>
+            Mind<span className={styles.brandLogoAccent}>Space</span>.
+          </div>
+          <div className={styles.brandSub}>Your focused study space</div>
         </div>
-        <Box
-          component="form"
-          onSubmit={(e) => handelAuth(e)}
-          noValidate
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            gap: 2,
-          }}
-        >
-          {formState === 1 ? (
-            <FormControl>
-              <FormLabel htmlFor="name">Full Name</FormLabel>
-              <TextField
-                // error={emailError}
-                // helperText={emailErrorMessage}
-                id="name"
-                type="name"
-                name="name"
-                placeholder="John doe"
-                autoComplete="name"
-                autoFocus
-                required
-                fullWidth
-                variant="outlined"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                // color={emailError ? "error" : "primary"}
-              />
-            </FormControl>
-          ) : (
-            <></>
-          )}
-          {formState === 0 && (
-            <Box
-              sx={{
-                textAlign: "center",
-              }}
+
+        <div className={styles.tabs}>
+          {["Sign in", "Sign up"].map((label, idx) => (
+            <button
+              key={label}
+              className={`${styles.tab} ${formState === idx ? styles.tabActive : ""}`}
+              onClick={() => switchTab(idx)}
             >
-              <Button
-                size="small"
-                variant="contained"
-                color="warning"
-                onClick={() => {
-                  setUsername("demoUser");
-                  setPassword("demouser21604");
-                }}
-              >
-                Use demo credentials
-              </Button>
-            </Box>
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {formState === 0 && (
+          <button className={styles.demoBtn} onClick={fillDemo}>
+            Use DEMO credentials
+          </button>
+        )}
+
+        {error && <div className={styles.alertError}>{error}</div>}
+        {message && <div className={styles.alertSuccess}>{message}</div>}
+
+        <form className={styles.form} onSubmit={handleAuth} noValidate>
+          {formState === 1 && (
+            <div className={styles.fieldWrap}>
+              <label className={styles.fieldLabel}>Full Name</label>
+              <input
+                className={inputClass("name")}
+                type="text"
+                placeholder="John Doe"
+                autoComplete="name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                onFocus={() => setFocused("name")}
+                onBlur={() => setFocused("")}
+              />
+            </div>
           )}
-          <FormControl>
-            <FormLabel htmlFor="username">Username</FormLabel>
-            <TextField
-              // error={emailError}
-              // helperText={emailErrorMessage}
-              id="username"
-              type="username"
-              name="username"
-              placeholder="your@email.com"
+
+          <div className={styles.fieldWrap}>
+            <label className={styles.fieldLabel}>Username</label>
+            <input
+              className={inputClass("username")}
+              type="text"
+              placeholder="your_username"
               autoComplete="username"
-              autoFocus
               required
-              fullWidth
               value={username}
-              variant="outlined"
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-              // color={emailError ? "error" : "primary"}
+              onChange={(e) => setUsername(e.target.value)}
+              onFocus={() => setFocused("username")}
+              onBlur={() => setFocused("")}
             />
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="password">Password</FormLabel>
+          </div>
 
-            <TextField
-              // error={passwordError}
-              // helperText={passwordErrorMessage}
-              name="password"
-              placeholder="••••••"
+          <div className={styles.fieldWrap}>
+            <label className={styles.fieldLabel}>Password</label>
+            <input
+              className={inputClass("password")}
               type="password"
-              id="password"
-              autoComplete="current-password"
-              autoFocus
+              placeholder="••••••••"
+              autoComplete={
+                formState === 0 ? "current-password" : "new-password"
+              }
               required
-              fullWidth
               value={password}
-              variant="outlined"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
+              onChange={(e) => setPassword(e.target.value)}
+              onFocus={() => setFocused("password")}
+              onBlur={() => setFocused("")}
             />
-          </FormControl>
+          </div>
 
-          <Button type="submit" fullWidth variant="contained">
-            {formState === 0 ? "Sign in" : "Sign up"}
-          </Button>
-        </Box>
-      </Card>
-      <Snackbar
-        open={open}
-        autoHideDuration={4000}
-        message={message}
-        onClose={() => setOpen(false)}
-      />
-    </Box>
+          <button className={styles.submitBtn} type="submit" disabled={loading}>
+            {loading
+              ? "Please wait…"
+              : formState === 0
+                ? "Sign in →"
+                : "Create account →"}
+          </button>
+        </form>
+
+        <div className={styles.divider}>
+          <div className={styles.dividerLine} />
+          <span className={styles.dividerText}>
+            {formState === 0 ? "new here?" : "already a member?"}
+          </span>
+          <div className={styles.dividerLine} />
+        </div>
+
+        <div className={styles.switchWrap}>
+          <button
+            className={styles.switchBtn}
+            onClick={() => switchTab(formState === 0 ? 1 : 0)}
+          >
+            {formState === 0 ? "Create a free account" : "Sign in instead"}
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
